@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heatmap Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Heatmap Generator</h1>
+        <form action="/generate_heatmap" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="videoFile">Upload Video (mp4 format):</label>
+                <input type="file" class="form-control-file" id="videoFile" name="videoFile" accept="video/mp4" required>
+            </div>
+            <div class="form-group">
+                <label for="palette">Choose Color Palette:</label>
+                <select class="form-control" id="palette" name="palette">
+                    <option value="viridis">Viridis</option>
+                    <option value="plasma">Plasma</option>
+                    <option value="inferno">Inferno</option>
+                    <option value="magma">Magma</option>
+                    <option value="cividis">Cividis</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="threshold">Scene Change Threshold (0.001 to 1.0) (recommended: 0.001-0.01):</label>
+                <input type="number" step="0.001" class="form-control" id="threshold" name="threshold" min="0.001" max="1" value="0.005" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Generate Heatmap</button>
+        </form>
+        <div class="mt-4">
+            {% if heatmap_image %}
+                <h2 class="text-center">Generated Heatmap:</h2>
+                <img src="{{ heatmap_image }}" class="img-fluid" alt="Heatmap">
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
